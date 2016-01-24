@@ -1,0 +1,16 @@
+{
+  "name": "reveil",
+  "description": "A connected alarm clock",
+  "version": "0.0.1",
+  "author": "Mika",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nodejitsu/browsenpm.org"
+  },
+  "dependencies": {
+    "google-auth-library": "^0.9.7",
+    "googleapis": "^2.1.7"
+  },
+  "devDependencies": {},
+  "license": "MIT"
+}
