@@ -69,7 +69,7 @@ Vagrant.configure(2) do |config|
     sudo apt-get update
     curl -sL https://deb.nodesource.com/setup_5.x | sudo bash -
     sudo apt-get install -y nodejs
-    nodejs config set bin-links false
+    npm config set bin-links false
     cd /vagrant
     npm install
   SHELL
