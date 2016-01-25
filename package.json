@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "google-auth-library": "^0.9.7",
-    "googleapis": "^2.1.7"
+    "googleapis": "^2.1.7",
+    "node-schedule": "^0.6.0",
+    "q": "^1.4.1",
+    "sonos-discovery": "https://github.com/jishi/node-sonos-discovery/archive/0.15.3.tar.gz"
   },
   "devDependencies": {},
   "license": "MIT"
