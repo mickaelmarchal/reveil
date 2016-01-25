@@ -4,7 +4,9 @@ var schedule = require('node-schedule');
 var SECRET_FILE = '../client_secret.json';
 var CALENDAR_ID = 'jnk4q16hsae07dnd2vhivp7ag4@group.calendar.google.com';
 
-
+// every minute at 42"
+var CALENDAR_REFRESH_INTERVAL = ''42 * * * * *'';
+/*
 function getTodaysAlarm(nextEvents) {
 
   var date = (new Date()).toISOString().substr(0, 10);
@@ -28,7 +30,7 @@ function getTodaysAlarm(nextEvents) {
     case 3:
     case 4:
     case 5:
-      var ret = if()
+    f
       return new Date(date+'T07:00:00+01:00');
 
     // sat-sun: no alarm
@@ -38,30 +40,42 @@ function getTodaysAlarm(nextEvents) {
   }
 
   return null;
-}
+}*/
 
 function triggerAlarm()
 {
-  console.log('AAAAALLLLLAAAAAAAAARRRRRRRRRMMMMMMMEEEEEEEEEE !!!!!!!!!!!');
+  console.log('AAAAALLLLLAAAAAAAAARRRRRRRRRMMMMMMM !!!!!!!!!!!');
 }
 
 
 var alarm = null;
 
 // every minute, check when is the next alarm and schedule the alarm if found
-var alarmSetter = schedule.scheduleJob('42 * * * * *', function() {
+var alarmSetter = schedule.scheduleJob(CALENDAR_REFRESH_INTERVAL, function() {
 
   console.log("alarm setter");
-  googleCalendar.getNextEvent(SECRET_FILE, CALENDAR_ID).then(
+  googleCalendar.getNextEvents(SECRET_FILE, CALENDAR_ID).then(
 
-    function(event) {
-      var date = event.start.dateTime;
-      console.log('set next alarm at: ' + date);
+    function(events) {
+
+      var date = null;
+      // take the first upcoming event in google calendar next events
+      for(var i = 0; i < events.length; i++) {
+        if(typeof events[i].start.dateTime != 'undefined') {
+          var startDate = new Date(events[i].start.dateTime);
+
+          if(startDate && startDate.getTime() > (new Date()).getTime()) {
+            date = startDate;
+            break;
+          }
+        }
+      }
+
       if(alarm) {
         alarm.cancel();
       }
       if(date) {
-        console.log('schedule alarm at '+time);
+        console.log('schedule alarm at '+date);
         alarm = schedule.scheduleJob(date, function() {
           triggerAlarm();
         });
